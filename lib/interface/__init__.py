@@ -38,7 +38,7 @@ def escolha(txt, name):
                 if cont == 0:
                     print('Ainda não há contas cadastradas!')
                 else:
-                    conta = checkDatas('Você quer informação de qual conta?')
+                    conta = checkDatas('Você quer informação de qual conta?', name)
                     readData(name, conta)
             elif op == '3':
                 cont = seeDatas(name)

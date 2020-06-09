@@ -1,14 +1,13 @@
 from lib.database import *
-from time import sleep
 
 
-def linha(tam=42):
+def linha(tam=60):
     return '-' * tam
 
 
 def cabecalho(txt):
     print(linha())
-    print(txt.center(42))
+    print(txt.center(60))
     print(linha())
 
 
@@ -20,7 +19,7 @@ def menu():
 {cor(3)}5{cor(0)} -{cor(4)} Sair do gerenciador de senhas{cor(0)}''')
 
 
-def escolha(txt):
+def escolha(txt, name):
     while True:
         op = str(input(txt)).strip()
         if op not in ['1', '2', '3', '4', '5']:
@@ -32,18 +31,26 @@ def escolha(txt):
                 login = corrigir('Qual login? ')
                 senha = corrigir('Qual a senha?')
                 linha()
-                data(nome.upper(), login, senha)
+                data(name, nome.upper(), login, senha)
                 print(f'Conta do {nome} salva com sucesso!')
             elif op == '2':
-                conta = checkDatas('Você quer informação de qual conta?')
-                readData(conta)
+                cont = seeDatas(name)
+                if cont == 0:
+                    print('Ainda não há contas cadastradas!')
+                else:
+                    conta = checkDatas('Você quer informação de qual conta?')
+                    readData(name, conta)
             elif op == '3':
-                cont = seeDatas()
+                cont = seeDatas(name)
                 if cont == 0:
                     print('Ainda não há contas cadastradas!')
             elif op == '4':
-                conta = checkDatas('Você quer deletar qual conta?')
-                deleteData(conta)
+                cont = seeDatas(name)
+                if cont == 0:
+                    print('Ainda não há contas cadastradas!')
+                else:
+                    conta = checkDatas('Você quer deletar qual conta?', name)
+                    deleteData(name, conta)
             elif op == '5':
                 print('Encerrando o gerenciador de senhas...')
                 return 'disconnect'
